@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "406537553710",
+    "project_id": "fsocialapp-c4e17",
+    "storage_bucket": "fsocialapp-c4e17.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406537553710:android:480b464281906aa4d15cbf",
+        "android_client_info": {
+          "package_name": "com.tunghq.fsocialmobileapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5tsO0L3EcIf3iKXhZnMIT5o5qok87IH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

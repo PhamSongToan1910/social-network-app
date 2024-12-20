@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#1f97b8"
+        android:src="@drawable/profile_image"
+        android:layout_margin="5.5dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/profile_image"/>
+    <ImageView
+        android:id="@+id/onlineStatusIv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/profile_image"
+        android:layout_marginLeft="-27dp"
+        android:layout_marginTop="-27dp"
+        android:layout_toRightOf="@id/profile_image" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toEndOf="@id/profile_image"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:id="@+id/username"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Memer"
+            android:layout_marginTop="-3dp"
+            android:id="@+id/memer"
+            android:textSize="14sp"
+          />
+
+
+    </LinearLayout>
+
+
+
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="Follow"
+        android:minWidth="99dp"
+        android:id="@+id/btn_follow"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:background="@drawable/btn_shape_rectangle"
+        android:layout_marginEnd="5dp"
+        android:textSize="15sp"
+        android:elevation="-2dp"
+        android:layout_marginTop="-2dp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="Sent.."
+        android:minWidth="99dp"
+        android:id="@+id/btn_sent"
+        android:backgroundTint="@color/teal_700"
+        android:visibility="gone"
+        android:background="@drawable/btn_shape_rectangle"
+        android:layout_marginEnd="5dp"
+        android:textSize="15sp"
+        android:elevation="-2dp"
+        android:layout_marginTop="-2dp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="Following"
+        android:visibility="gone"
+        android:minWidth="109dp"
+        android:backgroundTint="#6EBA17"
+        android:id="@+id/btn_following"
+        android:background="@drawable/btn_shape_rectangle"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginEnd="5dp"
+        android:textSize="15sp"
+        android:elevation="-2dp"
+        android:layout_marginTop="-2dp"
+        android:textColor="@android:color/white"
+        />
+
+
+</RelativeLayout>

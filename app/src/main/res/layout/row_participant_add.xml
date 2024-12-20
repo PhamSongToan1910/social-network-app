@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#1f97b8"
+        android:src="@drawable/profile_image"
+        android:layout_margin="5.5dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/avatarIv"/>
+    <ImageView
+        android:id="@+id/onlineStatusIv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/avatarIv"
+        android:layout_marginLeft="-27dp"
+        android:layout_marginTop="-27dp"
+        android:layout_toRightOf="@id/avatarIv" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toEndOf="@id/avatarIv"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="username"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:id="@+id/nameTv"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Memer"
+            android:layout_marginTop="-3dp"
+            android:textColor="@color/black"
+            android:id="@+id/featuredNameTv"
+            android:textSize="14sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="role"
+            android:layout_marginTop="-3dp"
+            android:id="@+id/statusTv"
+            android:textSize="14sp"
+            />
+
+    </LinearLayout>
+
+
+
+
+
+
+</RelativeLayout>

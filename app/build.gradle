@@ -1,0 +1,105 @@
+plugins {
+    id 'com.android.application'
+    id("com.google.gms.google-services")
+
+}
+
+android {
+    namespace 'com.tunghq.fsocialmobileapp'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.tunghq.fsocialmobileapp"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/LICENSE.txt")
+        exclude("META-INF/license.txt")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/NOTICE.txt")
+        exclude("META-INF/notice.txt")
+        exclude("META-INF/ASL2.0")
+        exclude("META-INF/*.kotlin_module")
+        exclude("META-INF/androidx.cardview_cardview.version")
+        exclude("META-INF/androidx.localbroadcastmanager_localbroadcastmanager.version")
+        exclude("META-INF/androidx.swiperefreshlayout_swiperefreshlayout.version")
+        exclude("META-INF/androidx.print_print.version")
+        exclude("META-INF/androidx.customview_customview.version")
+        exclude("META-INF/androidx.documentfile_documentfile.version")
+        exclude("META-INF/androidx.loader_loader.version")
+        exclude("META-INF/androidx.viewpager_viewpager.version")
+        exclude("META-INF/androidx.coordinatorlayout_coordinatorlayout.version")
+        exclude("META-INF/androidx.legacy_legacy-support-core-ui.version")
+        exclude("META-INF/androidx.legacy_legacy-support-v4.version")
+        exclude("META-INF/androidx.cursoradapter_cursoradapter.version")
+        exclude("META-INF/androidx.media_media.version")
+        exclude("META-INF/androidx.drawerlayout_drawerlayout.version")
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.0'
+    implementation 'com.google.firebase:firebase-storage:20.2.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.0'
+    implementation 'com.google.firebase:firebase-database:20.2.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth'
+
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.6'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.6'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.6'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.6'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.18.6'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.6'
+
+    // Add the dependencies for the Firebase Cloud Messaging and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation("com.google.firebase:firebase-analytics")
+
+    implementation 'com.android.volley:volley:1.2.1'
+}
+apply plugin: 'com.google.gms.google-services'

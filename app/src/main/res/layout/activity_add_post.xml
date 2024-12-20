@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/containerr"
+    android:layout_height="match_parent"
+    tools:context=".AddPostActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground"
+            android:elevation="3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/post_upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15sp"
+                    android:text="Post"
+                    android:textStyle="bold"
+                    android:textColor="#009688"
+                    android:textSize="20sp" />
+
+
+            </RelativeLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/post_card"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/appBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
+
+        <ImageView
+            android:id="@+id/pick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_pick_image" />
+        <VideoView
+            android:layout_width="match_parent"
+            android:layout_below="@id/post_description"
+            android:layout_height="match_parent"
+            android:id="@+id/vv_post"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            android:background="@android:color/transparent"
+            tools:ignore="MissingConstraints" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/post_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/post_card"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/edittext"
+        android:hint="Enter Description..."
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/post_description"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnAddvideo"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Pick Video"
+            android:layout_margin="50dp"
+            android:background="@drawable/btn_shape_rectangle"
+            android:backgroundTint="@color/teal_700"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+
+            />
+        <Button
+            android:id="@+id/btnAddImage"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Pick Image"
+            android:background="@drawable/btn_shape_rectangle"
+            android:backgroundTint="@color/teal_700"
+            android:textAllCaps="false"
+            android:layout_margin="50dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

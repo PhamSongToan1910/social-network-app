@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    app:cardCornerRadius="10dp"
+    app:contentPadding="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/rowGroupImgIv"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/baseline_groups_100" />
+
+
+        <TextView
+            android:id="@+id/rowGroupTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/rowGroupImgIv"
+            android:layout_toRightOf="@id/rowGroupImgIv"
+            android:paddingStart="10dp"
+            android:text="Group Title"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/rowGroupNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rowGroupTitleTv"
+            android:layout_toEndOf="@id/rowGroupImgIv"
+            android:layout_toRightOf="@id/rowGroupImgIv"
+            android:paddingStart="10dp"
+            android:text="Sender"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/haicham"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rowGroupTitleTv"
+            android:layout_toEndOf="@id/rowGroupNameTv"
+            android:paddingStart="5dp"
+            android:text=":"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/rowGroupMessageTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rowGroupTitleTv"
+            android:layout_toEndOf="@id/haicham"
+            android:layout_marginStart="5dp"
+            android:text="The message"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/rowGroupTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rowGroupMessageTv"
+            android:singleLine="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:text="time"
+            android:paddingRight="10dp"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
