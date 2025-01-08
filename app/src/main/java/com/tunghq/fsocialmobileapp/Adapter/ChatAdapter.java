@@ -16,6 +16,7 @@ import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,9 +35,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.tunghq.fsocialmobileapp.Util.AESEncryption;
+import com.tunghq.fsocialmobileapp.Util.DigitalSignatureUtil;
+import com.tunghq.fsocialmobileapp.Util.KeystoreUtils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.crypto.SecretKey;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyHolder>{
 
@@ -49,10 +56,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyHolder>{
     Context context;
     List<Chat> chatList;
     String imageUrl;
+    SecretKey secretKey;
     public ChatAdapter(Context context, List<Chat> chatList, String imageUrl) {
         this.context = context;
         this.chatList = chatList;
         this.imageUrl = imageUrl;
+        try {
+            secretKey = KeystoreUtils.getKey();
+        }catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     @NonNull
     @Override
@@ -70,32 +83,66 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, @SuppressLint("RecyclerView") final int position) {
         //get data
+        System.out.println("chat: " + chatList.get(position));
         String message = chatList.get(position).getMessage();
         String timeStamp = chatList.get(position).getTimeStamp();
         String type = chatList.get(position).getType();
         String date = chatList.get(position).getDate();
         String time = chatList.get(position).getTime();
+        String publicKey = (chatList.get(position).getPublicKey() != null) ? chatList.get(position).getPublicKey() : "";
+        String signature = (chatList.get(position).getSignature() != null) ? chatList.get(position).getSignature() : "";
 
         if(type.equals("text")){
             //text Message
             holder.messageTv.setVisibility(View.VISIBLE);
             holder.messageIv.setVisibility(View.GONE);
+            String textMess;
+            try {
+                System.out.println(secretKey);
+                System.out.println(message);
+                textMess = AESEncryption.decrypt(message, secretKey);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            holder.messageTv.setText(textMess);
 
-            holder.messageTv.setText(message);
-
-        }else{
+        }else if(type.equals("image")){
             //image message
             holder.messageTv.setVisibility(View.GONE);
             holder.messageIv.setVisibility(View.VISIBLE);
 
             Picasso.get().load(message).placeholder(R.drawable.baseline_image_24).into(holder.messageIv);
+        } else if(type.equals("file")) {
+            holder.messageTv.setVisibility(View.VISIBLE); // Hiển thị TextView
+            holder.messageIv.setVisibility(View.VISIBLE); // Hiển thị ImageView
+
+            // Đặt lại quy tắc RelativeLayout cho ImageView để nằm trên
+            if (holder.messageIv.getLayoutParams() instanceof RelativeLayout.LayoutParams) {
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.messageIv.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                holder.messageIv.setLayoutParams(params);
+            }
+
+            // Đặt TextView xuống dưới ImageView
+            if (holder.messageTv.getLayoutParams() instanceof RelativeLayout.LayoutParams) {
+                RelativeLayout.LayoutParams tvParams = (RelativeLayout.LayoutParams) holder.messageTv.getLayoutParams();
+                tvParams.addRule(RelativeLayout.BELOW, holder.messageIv.getId());
+                holder.messageTv.setLayoutParams(tvParams);
+            }
+
+            // Tải ảnh vào ImageView
+            Picasso.get().load(message).placeholder(R.drawable.file).into(holder.messageIv);
+
+            // Set text cho TextView
+            String[] messArray = message.split("\\+");
+            holder.messageTv.setText(messArray[messArray.length - 1]);
         }
         //set
         //holder.messageTv.setText(message);
         holder.timeTv.setText(date);
         holder.timeHoursTv.setText(time);
         try{
-            Picasso.get().load(imageUrl).into(holder.profileIv);
+            Picasso.get().load(message).placeholder(R.drawable.file).into(holder.messageIv);
         }catch (Exception e){
 
         }
@@ -173,7 +220,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyHolder>{
                 buttonDown.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        downloadFile(message);
+                        System.out.println("signature: " + signature);
+                        System.out.println("publicKey: " + publicKey);
+                        downloadFileAction(message, signature, publicKey);
 
                     }
                 });
@@ -188,19 +237,22 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyHolder>{
         });
 
     }
-    private void downloadFile(String url){
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        String title = URLUtil.guessFileName(url,null,null);
-        request.setTitle(title);
-        request.setDescription("Downloading File please wait...");
-        String cookie = CookieManager.getInstance().getCookie(url);
-        request.addRequestHeader("cookie",cookie);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title);
-        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-        downloadManager.enqueue(request);
-
-        Toast.makeText(context, "Downloading started...", Toast.LENGTH_SHORT).show();
+    private void downloadFileAction(String url, String signature, String publicKey){
+        if(url.contains("\\+")) {
+            DigitalSignatureUtil.receiveAndVerifyFile(url, signature, publicKey, new DigitalSignatureUtil.VerificationCallback() {
+                @Override
+                public void onVerificationComplete(boolean isValid) {
+                    System.out.println(isValid);
+                    if (isValid) {
+                        downloadFile(url);
+                    } else {
+                        System.out.println("Can't download!!!");
+                    }
+                }
+            });
+        } else {
+            downloadFile(url);
+        }
     }
 
     private void deleteMessage(int position) {
@@ -223,12 +275,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyHolder>{
                     if(ds.child("sender").getValue().equals(myUid)){
                         //ds.getRef().removeValue();
                         HashMap<String,Object> hashMap = new HashMap<>();
-                        hashMap.put("message","This message was deleted...");
+                        try {
+                            hashMap.put("message",AESEncryption.encrypt("This message was deleted...", secretKey));
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
                         ds.getRef().updateChildren(hashMap);
                         Toast.makeText(context, "Message deleted", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(context, "You can delete only your message   ", Toast.LENGTH_SHORT).show();
-
                     }
                 }
             }
@@ -275,6 +330,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyHolder>{
             timeHoursTv = itemView.findViewById(R.id.timeHoursTv);
 
         }
+    }
+
+    public void downloadFile(String url) {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        String title = URLUtil.guessFileName(url,null,null);
+        request.setTitle(title);
+        request.setDescription("Downloading File please wait...");
+        String cookie = CookieManager.getInstance().getCookie(url);
+        request.addRequestHeader("cookie",cookie);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title);
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        downloadManager.enqueue(request);
+
+        Toast.makeText(context, "Downloading started...", Toast.LENGTH_SHORT).show();
     }
 }
 

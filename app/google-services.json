@@ -1,26 +1,37 @@
 {
   "project_info": {
-    "project_number": "406537553710",
-    "project_id": "fsocialapp-c4e17",
-    "storage_bucket": "fsocialapp-c4e17.firebasestorage.app"
+    "project_number": "209255570993",
+    "firebase_url": "https://social-network-app-b7a59-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "social-network-app-b7a59",
+    "storage_bucket": "social-network-app-b7a59.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:406537553710:android:480b464281906aa4d15cbf",
+        "mobilesdk_app_id": "1:209255570993:android:02bf9f8d03d04e643fff10",
         "android_client_info": {
           "package_name": "com.tunghq.fsocialmobileapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "209255570993-3janss7de81hc364h1a0i3qs80cc3rpi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyB5tsO0L3EcIf3iKXhZnMIT5o5qok87IH4"
+          "current_key": "AIzaSyBelC2xK6UoPgKOLKU4IJdl2vgJ9kLd6KQ"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209255570993-3janss7de81hc364h1a0i3qs80cc3rpi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

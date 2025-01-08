@@ -28,9 +28,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tunghq.fsocialmobileapp.SearchUsersActivity;
+import com.tunghq.fsocialmobileapp.Util.AESEncryption;
+import com.tunghq.fsocialmobileapp.Util.KeystoreUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.SecretKey;
 
 
 public class ChatListFragment extends Fragment {
@@ -46,9 +50,14 @@ public class ChatListFragment extends Fragment {
 
     public static ImageView note4;
     ImageView search;
+    SecretKey secretKey;
 
     public ChatListFragment() {
-        // Required empty public constructor
+        try {
+            secretKey = KeystoreUtils.getKey();
+        }catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 
@@ -161,9 +170,14 @@ public class ChatListFragment extends Fragment {
                             && chat.getSender().equals(currentUser.getUid())) {
                         if(chat.getType().equals("image")){
                             theLastMessage = "Sent a photo....";
-                        }else{
-                            theLastMessage = chat.getMessage();
-
+                        } else if(chat.getType().equals("file")) {
+                            theLastMessage = "Sent a file....";
+                        } else{
+                            try {
+                                theLastMessage = AESEncryption.decrypt(chat.getMessage(), secretKey);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 }

@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.tunghq.fsocialmobileapp" />
-                  <option name="mobileSdkAppId" value="1:406537553710:android:480b464281906aa4d15cbf" />
-                  <option name="projectId" value="fsocialapp-c4e17" />
-                  <option name="projectNumber" value="406537553710" />
+                  <option name="mobileSdkAppId" value="1:209255570993:android:02bf9f8d03d04e643fff10" />
+                  <option name="projectId" value="social-network-app-b7a59" />
+                  <option name="projectNumber" value="209255570993" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.tunghq.fsocialmobileapp.Util.KeystoreUtils;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -24,6 +25,11 @@ public class SplashActivity extends AppCompatActivity {
         auth=FirebaseAuth.getInstance ();
         user=auth.getCurrentUser ();
 
+        try {
+            KeystoreUtils.generateKey();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         new Handler(  ).postDelayed (new Runnable () {
             @Override

@@ -3,7 +3,7 @@ package com.tunghq.fsocialmobileapp.Models;
 import com.google.firebase.database.PropertyName;
 
 public class Chat {
-    String message, receiver, sender, timeStamp, type, date, time;
+    String message, receiver, sender, timeStamp, type, date, time, publicKey, signature;
     boolean isSeen;
     public Chat(){
 
@@ -18,6 +18,16 @@ public class Chat {
         this.date = date;
         this.time = time;
         this.isSeen = isSeen;
+    }
+
+    public Chat(String message, String publicKey, String receiver, String sender, String signature, String timeStamp, String type) {
+        this.message = message;
+        this.receiver = receiver;
+        this.sender = sender;
+        this.timeStamp = timeStamp;
+        this.type = type;
+        this.publicKey = publicKey;
+        this.signature = signature;
     }
 
     public String getMessage() {
@@ -86,4 +96,20 @@ public class Chat {
     public void setSeen(boolean seen) {
         isSeen = seen;
     }
+
+    @PropertyName("publicKey")
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    @PropertyName("publicKey")
+    public void setPublicKey(String publicKey) {this.publicKey = publicKey;}
+
+    @PropertyName("signature")
+    public String getSignature() {
+        return signature;
+    }
+
+    @PropertyName("signature")
+    public void setSignature(String signature) {this.signature = signature;}
 }

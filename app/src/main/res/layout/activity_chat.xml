@@ -65,23 +65,24 @@
         android:background="#B3C6D5"
         android:gravity="center"
         android:orientation="horizontal">
+
         <ImageButton
+            android:id="@+id/attachBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
-            android:id="@+id/attachBtn"
-            android:src="@drawable/baseline_image_50"
-            android:background="@null"/>
+            android:background="@null"
+            android:src="@drawable/baseline_image_50" />
 
         <EditText
             android:id="@+id/messageEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/chat_edit"
             android:hint="Starting typing"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
             android:inputType="textCapSentences|textMultiLine"
             android:padding="15dp" />
 
